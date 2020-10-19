@@ -1,4 +1,4 @@
-CDS - W5 - Assignment skrt
+CDS - W5 - Assignment
 ================
 
 # Explore the recent global developments with R
@@ -14,8 +14,16 @@ below.**
 
 ## Get the necessary packages
 
-First, start with installing the relevant packages ‘tidyverse’,
-‘gganimate’, and ‘gapminder’.
+Assignment: First, start with installing the relevant packages
+‘tidyverse’, ‘gganimate’, and
+‘gapminder’.
+
+## Answer: I use the p\_load function from the pacman package to load and install my packages. By using this function I can reduce the following chunk to only two lines of code:
+
+``` r
+library(pacman)
+p_load(tidyverse, gganimate, gapminder, scales)
+```
 
 ## Look at the data
 
@@ -58,18 +66,18 @@ ggplot(subset(gapminder, year == 1952), aes(gdpPercap, lifeExp, size = pop)) +
   scale_x_log10() 
 ```
 
-![](CDS---W5---Assignment_files/figure-gfm/1957-1.png)<!-- --> We see an
-interesting spread with an outlier to the right. Answer the following
-questions, please:
+![](CDS---W5---Assignment_files/figure-gfm/1957-1.png)<!-- --> \#\# We
+see an interesting spread with an outlier to the right. Answer the
+following questions,
+please:
 
-Q1. Why does it make sense to have a log10 scale on x axis? A1. Because
-it avoids a skew towards the large data points, which becomes a problem
-when a few data points are much larger than the rest of the data (as is
-the case here).
+## Q1. Why does it make sense to have a log10 scale on x axis?
 
-Q2. What country is the richest in 1952 (far right on x axis)? A2. This
-can not be deducted from the plot, so I solve the question using the
-following code.
+## A1. Because it avoids a skew towards the large data points, which becomes a problem when a few data points are much larger than the rest of the data (as is the case here).
+
+## Q2. What country is the richest in 1952 (far right on x axis)?
+
+## A2. This can not be deducted from the plot, so I solve the question using the following code.
 
 ``` r
 gapminder[gapminder$gdpPercap==max(gapminder$gdpPercap),]
@@ -80,14 +88,13 @@ gapminder[gapminder$gdpPercap==max(gapminder$gdpPercap),]
     ##   <fct>   <fct>     <int>   <dbl>  <int>     <dbl>
     ## 1 Kuwait  Asia       1957    58.0 212846   113523.
 
-A2 cont. As we can see here, the richest country (as measured by gdp
-per. capita) is Kuwait.
+## A2 cont. As we can see here, the richest country (as measured by gdp per. capita) is Kuwait.
 
 You can generate a similar plot for 2007 and compare the
 differences
 
 ``` r
-ggplot(subset(gapminder, year == 2007), aes(gdpPercap, lifeExp, size = pop, colour = continent)) +
+ggplot(subset(gapminder, year == 2007), aes(gdpPercap, lifeExp, size = pop)) +
   geom_point() +
   scale_x_log10() 
 ```
@@ -102,13 +109,18 @@ labels?
 ``` r
 ggplot(subset(gapminder, year == 2007), aes(gdpPercap, lifeExp, size = pop, colour = continent)) +
   geom_point() +
-  scale_x_log10() + xlab("gdpPercap (log10)") + ylab("Life Expectancy")
+  scale_x_log10() + xlab("GDP Per. Capita (log10)") + ylab("Life Expectancy")
 ```
 
 ![](CDS---W5---Assignment_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-Q4. What are the five richest countries in the world in
-2007?
+Q4. What are the five richest countries in the world in 2007?
+
+Using the tidyverse package I can answer this. filter() ensures that I
+only use data from 2007. group\_by() groups the data into countries.
+summarise() summarises the data (in this case gdpPercap). desc() orders
+the data in decreasing order which is the arranged as two columns using
+arrange().
 
 ``` r
 gapminder %>% filter(year==2007) %>% group_by(country) %>% summarise(gdpPercap) %>%  arrange(desc(gdpPercap), desc(country))
@@ -130,6 +142,9 @@ gapminder %>% filter(year==2007) %>% group_by(country) %>% summarise(gdpPercap) 
     ##  9 Canada              36319.
     ## 10 Iceland             36181.
     ## # ... with 132 more rows
+
+A5. The five richest countries are: Norway, Kuwait, Singapore, United
+States and Ireland.
 
 ## Make it move\!
 
@@ -200,8 +215,8 @@ transition\_states() and transition\_time() functions respectively\]
 
 A5. When using the transition\_time function, a variable (available for
 string literal interpretation) named frame\_time, will be made. This can
-be used in cunjunction with the ‘label’ geom of ggplot to display the
-year of each animation frame. The same can be done with the other plot
+be used in cunjunction with the ‘label’ geom in ggplot to display the
+year of each animation frame. The same can be done with the first plot
 by writing “{closest\_state}”. To make it even cooler, I have added each
 continent as a unique
 color.
@@ -233,9 +248,9 @@ expanding the abreviated lables as well as the scientific notation in
 the legend and x axis to whole numbers.\[hint:search disabling
 scientific notation\]
 
-A6. I change the x-axis label to make it easier to read and I change the
-labels on the axes. I also use the options function to remove scientific
-notation in the legend.
+A6. I change the notation of the x-axis label to make it easier to read
+and I change the labels on the axes. I also use the options function to
+remove scientific notation in the legend.
 
 ``` r
 options(scipen=10000)
@@ -260,7 +275,7 @@ continents in the year you were born versus your parents’ birth years).
 you can load either the `gapminder_unfiltered` dataset and download more
 at <https://www.gapminder.org/data/> \]
 
-A7. How has life expectancy changed as a function of years after 1952.
+A7. How has life expectancy changed as a function of years after 1952?
 
 ``` r
 birth <- ggplot(gapminder, aes(year, lifeExp)) +
