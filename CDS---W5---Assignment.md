@@ -15,22 +15,21 @@ below.**
 ## Get the necessary packages
 
 Assignment: First, start with installing the relevant packages
-‘tidyverse’, ‘gganimate’, and
-‘gapminder’.
+‘tidyverse’, ‘gganimate’, and ‘gapminder’.
 
-## Answer: I use the p\_load function from the pacman package to load and install my packages. By using this function I can reduce the following chunk to only two lines of code:
+Answer: I use the p\_load function from the pacman package to load and
+install my packages. By using this function I can reduce the following
+chunk to only two lines of code:
 
 ``` r
 library(pacman)
 p_load(tidyverse, gganimate, gapminder, scales)
 ```
 
-## Look at the data
-
-First, see which specific years are actually represented in the dataset
-and what variables are being recorded for each country. Note that when
-you run the cell below, Rmarkdown will give you two results - one for
-each line - that you can flip between.
+Look at the data First, see which specific years are actually
+represented in the dataset and what variables are being recorded for
+each country. Note that when you run the cell below, Rmarkdown will give
+you two results - one for each line - that you can flip between.
 
 ``` r
 unique(gapminder$year)
@@ -68,16 +67,18 @@ ggplot(subset(gapminder, year == 1952), aes(gdpPercap, lifeExp, size = pop)) +
 
 ![](CDS---W5---Assignment_files/figure-gfm/1957-1.png)<!-- --> \#\# We
 see an interesting spread with an outlier to the right. Answer the
-following questions,
-please:
+following questions, please:
 
-## Q1. Why does it make sense to have a log10 scale on x axis?
+Q1. Why does it make sense to have a log10 scale on x axis?
 
-## A1. Because it avoids a skew towards the large data points, which becomes a problem when a few data points are much larger than the rest of the data (as is the case here).
+A1. Because it avoids a skew towards the large data points, which
+becomes a problem when a few data points are much larger than the rest
+of the data (as is the case here).
 
-## Q2. What country is the richest in 1952 (far right on x axis)?
+Q2. What country is the richest in 1952 (far right on x axis)?
 
-## A2. This can not be deducted from the plot, so I solve the question using the following code.
+A2. This can not be deducted from the plot, so I solve the question
+using the following code.
 
 ``` r
 gapminder[gapminder$gdpPercap==max(gapminder$gdpPercap),]
@@ -88,7 +89,8 @@ gapminder[gapminder$gdpPercap==max(gapminder$gdpPercap),]
     ##   <fct>   <fct>     <int>   <dbl>  <int>     <dbl>
     ## 1 Kuwait  Asia       1957    58.0 212846   113523.
 
-## A2 cont. As we can see here, the richest country (as measured by gdp per. capita) is Kuwait.
+A2 cont. As we can see here, the richest country (as measured by gdp
+per. capita) is Kuwait.
 
 You can generate a similar plot for 2007 and compare the
 differences
